@@ -6,6 +6,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "postinstall": "npm run build",
+    "build": "rimraf dist && tsc",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
@@ -30,6 +32,7 @@
     "react-native-status-bar-height": "^2.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-navigation-stack": "^2.10.4",
+    "rimraf": "^3.0.2",
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
