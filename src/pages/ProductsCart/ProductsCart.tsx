@@ -1,8 +1,6 @@
-
 import {
   Image,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,6 +10,7 @@ import {
 
 import {useNavigation} from '@react-navigation/native';
 import {useGlobalContext} from '../../context/GlobalContext';
+import {mappable} from '../../mapping/customMap';
 
 // eslint-disable-next-line prettier/prettier
 import {
@@ -62,7 +61,7 @@ export const ProductsCart: React.FC = () => {
   };
   const {cartWish, setCartWish} = useGlobalContext();
 
-  const removeCart = item => {
+  const removeCart = (item: mappable) => {
     if (cartWish !== undefined) {
       setCartWish(cartWish.filter(index => index !== item));
     }

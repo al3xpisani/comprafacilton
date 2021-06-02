@@ -25,7 +25,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Header from '../components/header/Header';
-import {mapProducts} from '../../mapping/customMap';
+import {mappable, mapProducts} from '../../mapping/customMap';
 import faker from 'faker';
 import {useGlobalContext} from '../../context/GlobalContext';
 
@@ -80,14 +80,14 @@ export const ProductsList: React.FC = () => {
     setProducts(new Array(10).fill(undefined).map(createProduct));
   }, []);
 
-  const addCart = item => {
+  const addCart = (item: mappable) => {
     console.log('cart added', cartWish);
     if (cartWish !== undefined) {
       setCartWish([...cartWish, item]);
     }
   };
 
-  const removeCart = item => {
+  const removeCart = (item: mappable) => {
     if (cartWish !== undefined) {
       setCartWish(cartWish.filter(index => index !== item));
     }

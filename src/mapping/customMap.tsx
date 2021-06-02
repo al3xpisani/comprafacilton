@@ -1,4 +1,4 @@
-interface mappable {
+export interface mappable {
   uuid: string;
   productName: string;
   price: {min: number};
