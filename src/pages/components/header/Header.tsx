@@ -35,8 +35,8 @@ const Header: React.FC<childProps> = ({
         <ProfileTouch disabled={!hasCartItems} onPress={showCart}>
           <Iconf
             name={hasCartItems ? 'cart' : 'cart-outline'}
-            size={28}
-            color="#fff"
+            size={hasCartItems ? 30 : 28}
+            color={hasCartItems ? '#FF0000' : '#fff'}
           />
         </ProfileTouch>
       </ViewTitle>

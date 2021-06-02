@@ -72,7 +72,7 @@ export const ProductsCart: React.FC = () => {
     navigation.navigate('home');
   };
 
-  console.log('products', cartWish);
+  // console.log('products', cartWish);
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />

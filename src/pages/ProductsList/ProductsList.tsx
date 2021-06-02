@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
+import Toast from 'react-native-simple-toast';
 import {
   SafeAreaView,
   ScrollView,
@@ -81,9 +82,13 @@ export const ProductsList: React.FC = () => {
   }, []);
 
   const addCart = (item: mappable) => {
-    console.log('cart added', cartWish);
+    // console.log('cart added', cartWish);
     if (cartWish !== undefined) {
-      setCartWish([...cartWish, item]);
+      if (!cartWish.find(cart => cart === item)) {
+        setCartWish([...cartWish, item]);
+      } else {
+        Toast.show('Esse item já foi adicionado ao carrinho.');
+      }
     }
   };
 
