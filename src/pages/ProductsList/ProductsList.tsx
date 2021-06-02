@@ -1,44 +1,10 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import Toast from 'react-native-simple-toast';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  Image,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {
-  ProductsView,
-  AddCartImg,
-  Iconf,
-  ViewButton,
-  TextProductName,
-} from './styles';
-
-// eslint-disable-next-line prettier/prettier
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
-import Header from '../components/header/Header';
-import {Section} from '../components/section/Section';
-import {mappable, mapProducts} from '../../mapping/customMap';
+import {SectionDetails} from '../components/sectiondetails/SectionDetails';
+import {mapProducts} from '../../mapping/customMap';
 import faker from 'faker';
-import {useGlobalContext} from '../../context/GlobalContext';
 
 export const ProductsList: React.FC = () => {
-  const navigation = useNavigation();
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const {cartWish, setCartWish} = useGlobalContext();
   const [products, setProducts] = useState<mapProducts | undefined>([]);
 
   useEffect(() => {
@@ -56,92 +22,11 @@ export const ProductsList: React.FC = () => {
     setProducts(new Array(10).fill(undefined).map(createProduct));
   }, []);
 
-  const addCart = (item: mappable) => {
-    // console.log('cart added', cartWish);
-    if (cartWish !== undefined) {
-      if (!cartWish.find(cart => cart === item)) {
-        setCartWish([...cartWish, item]);
-      } else {
-        Toast.show('Esse item já foi adicionado ao carrinho.');
-      }
-    }
-  };
-
-  const removeCart = (item: mappable) => {
-    if (cartWish !== undefined) {
-      setCartWish(cartWish.filter(index => index !== item));
-    }
-
-    // console.log('cart removed', cartWish && cartWish.length);
-  };
-
-  const showCart = () => {
-    navigation.navigate('cart');
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Header
-        title="Compra fácil Ton"
-        hasCartItems={
-          cartWish !== undefined && cartWish.length !== 0 ? true : false
-        }
-        showCart={showCart}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="">
-            {products &&
-              products.map(item => {
-                return (
-                  <ProductsView key={item.uuid}>
-                    <Image
-                      source={{uri: item.image}}
-                      style={{
-                        width: 128,
-                        height: 128,
-                        borderRadius: 4,
-                        overflow: 'hidden',
-                      }}
-                    />
-                    <View>
-                      <TextProductName numberOfLines={1}>
-                        {' '}
-                        {item.productName}
-                      </TextProductName>
-                      <Text style={{fontWeight: 'bold'}}>
-                        {' '}
-                        R$ {item.price.min}
-                      </Text>
-                      <ViewButton>
-                        <AddCartImg onPress={() => addCart(item)}>
-                          <Iconf
-                            name={'add-circle-outline'}
-                            size={38}
-                            color="#000"
-                          />
-                        </AddCartImg>
-                        <AddCartImg onPress={() => removeCart(item)}>
-                          <Iconf
-                            name={'close-circle-outline'}
-                            size={38}
-                            color="#000"
-                          />
-                        </AddCartImg>
-                      </ViewButton>
-                    </View>
-                  </ProductsView>
-                );
-              })}
-          </Section>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <SectionDetails
+      title="Compra fácil Ton"
+      showBack={false}
+      products={products}
+    />
   );
 };
